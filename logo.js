@@ -1,7 +1,12 @@
 const MAX_X = 500;
 const MAX_Y = 500;
 
-let turtle = null;
+let turtle = {
+    direction: 0,
+    x: MAX_X / 2,
+    y: MAX_Y / 2,
+    color: 'black'
+};
 const canvas = document.getElementById('canvas');
 const ctx = canvas.getContext('2d');
 
@@ -68,41 +73,14 @@ function color(color) {
  * Called when the page first loads
  */
 function init() {
-    turtle = getDefaultTurtle();
-
     document.getElementById("runProgram").onclick = () => {
         document.location.reload();
     }
 
-
-    // Its assumed this is defined in the program.js file
-    start();
-}
-/**
- * Reset back to the initial state and re-runs the program
- */
-function reset() {
-    turtle = getDefaultTurtle();
-
-    ctx.fillStyle = 'white';
-    ctx.fillRect(0, 0, MAX_X, MAX_Y);
-
     // Its assumed this is defined in the program.js file
     start();
 }
 
-/**
- * Returns the Turtle data structure with default values
- * @returns 
- */
-function getDefaultTurtle() {
-    return {
-        direction: 0,
-        x: MAX_X / 2,
-        y: MAX_Y / 2,
-        color: 'black'
-    };
-}
 
 function degToRad(degrees) {
     return degrees * (Math.PI / 180);
