@@ -1,0 +1,11 @@
+#canvas {
+    border: solid blue;
+}
+
+#runProgram {
+    height : 75px;
+    width: 200px;
+    font-size: 1.4em;
+    background-color: green;
+    color: white;;
+}
