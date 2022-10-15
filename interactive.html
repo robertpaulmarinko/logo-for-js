@@ -2,18 +2,22 @@
     <head>
         <title>Logo for JS</title>
         <link rel="stylesheet" href="style.css">
-        <script src="program.js" defer></script>
+        <script src="programInteractive.js" defer></script>
         <script src="logo.js" defer></script>
     </head>
     <body>
         <canvas id="canvas" width="500" height="500"></canvas>
+        <div style="margin-top:10px; margin-bottom: 10px; font-size: 2em;">
+            Key Pressed: <span id="keyPressed"></span>
+        </div>
         <div>
             <button id="runProgram">Run Program</button>
         </div>
     </body>
+
     <script>
         window.onload = function() {
-            init();
+            initInteractive();
         }
     </script>
 </html>

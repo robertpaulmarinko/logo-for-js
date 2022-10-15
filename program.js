@@ -1,10 +1,19 @@
 function start() 
 {
     var maxsize=prompt('How big do you want the shapes to be?')
-    color('lightblue');
+    var myColor=prompt('What color do you want?')
+    if(myColor== 'black'){
+        alert('Are you my grandpa?')
+    }
+    if(myColor=='lightblue' ||myColor=='aqua'){
+        alert('The best choice!')
+    }
+    var sides=prompt('How many sides do you want?')
+    var degree=prompt('What degree do you want the shape to be at?')
+    color(myColor);
     for(var size=1;size<=maxsize;size = size +1){
-        makeShape(size,3);
-        left(20);
+        makeShape(size,sides);
+        left(degree);
     }
  
 

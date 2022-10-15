@@ -10,8 +10,6 @@ let turtle = {
 const canvas = document.getElementById('canvas');
 const ctx = canvas.getContext('2d');
 
-init();
-
 //-----------------------------------------------------------------------
 // Logo commands
 //-----------------------------------------------------------------------
@@ -66,11 +64,39 @@ function color(color) {
 }
 
 //-----------------------------------------------------------------------
+// Turtle Drawing Functions
+//-----------------------------------------------------------------------
+function drawTurtle() {
+    const sideDistance = 20;
+    let direction = turtle.direction - 90;
+    while (direction < 0) direction += 360;
+    const [x1, y1] = getLineEndXY(turtle.x, turtle.y, direction, sideDistance);
+
+    direction = direction + 45;
+    while (turtle.direction >= 360) turtle.direction =- 360;
+    const [x2, y2] = getLineEndXY(x1, y1, direction, sideDistance * 2);
+
+    direction = direction + 90;
+    while (turtle.direction >= 360) turtle.direction =- 360;
+    const [x3, y3] = getLineEndXY(x2, y2, direction, sideDistance * 2);
+
+    ctx.beginPath();
+    ctx.strokeStyle = turtle.color;
+    ctx.lineTo(x1, y1);
+    ctx.lineTo(x2, y2);
+    ctx.lineTo(x3, y3);
+    ctx.fill();
+}
+
+
+//-----------------------------------------------------------------------
 // Helper functions
 //-----------------------------------------------------------------------
 
 /**
- * Called when the page first loads
+ * Called when the page first loads.  
+ * Calls a start() function defined in the program.js file
+ * to run a batch process.
  */
 function init() {
     document.getElementById("runProgram").onclick = () => {
@@ -81,9 +107,45 @@ function init() {
     start();
 }
 
+/**
+ * Called when the interactive page first loaded.
+ * WIll call the "keyPressed" function defined in programInteractive.js
+ * whenever a key is pressed.
+ */
+function initInteractive() {
+    document.getElementById("runProgram").onclick = () => {
+        document.location.reload();
+    }
+
+    window.addEventListener("keyup", function (event) {
+        if (event.defaultPrevented) {
+          return; // Do nothing if the event was already processed
+        }
+      
+        document.getElementById("keyPressed").innerHTML = event.key;
+        keyPressed(event.key);
+
+        // Cancel the default action to avoid it being handled twice
+        event.preventDefault();
+      }, true);
+      // the last option dispatches the event to the listener first,
+      // then dispatches event to window
+}
+
 
 function degToRad(degrees) {
     return degrees * (Math.PI / 180);
+}
+
+/**
+ * Given the start of a line, a direction in degrees and 
+ * a distance, returns the ending X,Y of the line.
+ */
+function getLineEndXY(startX, startY, direction, distance) {
+    const newX = startX + (distance * Math.cos(degToRad(direction)));
+    const newY = startY + (distance * Math.sin(degToRad(direction)));
+
+    return [newX, newY];
 }
 
 function draw(distance, distanceDrawn) {
